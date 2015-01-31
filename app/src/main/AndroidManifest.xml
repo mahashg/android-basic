@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.mgupta3.application_1" >
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name=".HomePage"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Quotes"
+            android:label="@string/title_activity_display_message"
+            android:parentActivityName=".HomePage" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mgupta3.application_1.HomePage" />
+        </activity>
+        <activity
+            android:name=".PictureViewer"
+            android:label="@string/title_activity_option_selector"
+            android:parentActivityName=".HomePage" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mgupta3.application_1.HomePage" />
+        </activity>
+        <activity
+            android:name=".VideoViewer"
+            android:label="@string/title_activity_video_viewer"
+            android:parentActivityName=".HomePage" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mgupta3.application_1.HomePage" />
+        </activity>
+        <activity
+            android:name=".MusicPlayer"
+            android:label="@string/title_activity_music_player"
+            android:parentActivityName=".HomePage" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.example.mgupta3.application_1.HomePage" />
+        </activity>
+    </application>
+
+</manifest>
