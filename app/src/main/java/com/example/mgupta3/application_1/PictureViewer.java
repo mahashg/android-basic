@@ -1,32 +1,56 @@
 package com.example.mgupta3.application_1;
 
 import android.app.Activity;
+import android.graphics.Matrix;
+import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.DragEvent;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
+import android.view.ScaleGestureDetector;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.OverScroller;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class PictureViewer extends Activity {
-    private List<Integer> imagesList;
-    private int current_index = 0;
+    private List<Integer> imagesList = new ArrayList<Integer>();
+    private List<String> description_list = new ArrayList<String>();
+    private Toast toast;
 
+    private int current_index = 0;
     public PictureViewer(){
         updateImageList();
     }
 
     public void updateImageList(){
-        this.imagesList = new ArrayList<Integer>();
         this.imagesList.add(R.drawable.pic1);
         this.imagesList.add(R.drawable.pic2);
         this.imagesList.add(R.drawable.pic3);
         this.imagesList.add(R.drawable.pic4);
         this.imagesList.add(R.drawable.pic5);
+        this.imagesList.add(R.drawable.pic6);
+        this.imagesList.add(R.drawable.pic7);
+        this.imagesList.add(R.drawable.pic8);
+        this.imagesList.add(R.drawable.pic9);
+
+        this.description_list.add("You are what you eat.");
+        this.description_list.add("Adorable Cat");
+        this.description_list.add("Master Yoda, trolling..");
+        this.description_list.add("Pack you bags");
+        this.description_list.add("No parking, means no parking");
+        this.description_list.add("One throne to rule them all");
+        this.description_list.add("Anything can happen");
+        this.description_list.add("Infinite gold");
+        this.description_list.add("Silly mistake.");
     }
 
     @Override
@@ -34,20 +58,20 @@ public class PictureViewer extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_viewer);
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        /*
-        String message = "Mr. Gupta";
 
-        TextView textView = new TextView(this);
-        textView.setText("Hello, "+message+", I am neo.");
-        textView.setTextSize(40);
-        ImageView imageView = new ImageView(this);
-        imageView.setImageResource(R.drawable.pic1);
-        imageView.setMaxHeight(300);
-        imageView.setMaxWidth(300);
+       ImageView img = (ImageView) findViewById(R.id.display);
 
-        setContentView(imageView);
-        */
+       img.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View view) {
+                next(view);
+            }
+        });
 
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent ev) {
+        return true;
     }
 
 
@@ -76,25 +100,29 @@ public class PictureViewer extends Activity {
 
     // next button clicked
     public void next(View view){
-        ImageView imageView = (ImageView) findViewById(R.id.display);
-        if(current_index == imagesList.size()-1){
-            current_index = 0;
-        }else{
-            ++current_index;
+        if(toast != null){
+            toast.cancel();
         }
+        ImageView imageView = (ImageView) findViewById(R.id.display);
+        current_index = (current_index + imagesList.size()+1) % imagesList.size();
+
         imageView.setImageResource(imagesList.get(current_index));
+
+        toast = Toast.makeText(this, description_list.get(current_index), Toast.LENGTH_LONG);
+        toast.show();
     }
 
     // previous button clicked
     public void previous(View view){
-        ImageView imageView = (ImageView) findViewById(R.id.display);
-        if(current_index == 0){
-            current_index = imagesList.size()-1;
-        }else{
-            --current_index;
+        if(toast != null){
+            toast.cancel();
         }
+        ImageView imageView = (ImageView) findViewById(R.id.display);
+        current_index = (current_index + imagesList.size()-1) % imagesList.size();
 
         imageView.setImageResource(imagesList.get(current_index));
+        toast = Toast.makeText(this, description_list.get(current_index), Toast.LENGTH_LONG);
+        toast.show();
     }
 
     public int getCurrentImageIndex(int id){
@@ -103,4 +131,5 @@ public class PictureViewer extends Activity {
         }
         return -1;
     }
+
 }

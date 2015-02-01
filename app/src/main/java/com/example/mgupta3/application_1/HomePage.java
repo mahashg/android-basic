@@ -7,16 +7,49 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 
 public class HomePage extends Activity {
     public final static String EXTRA_MESSAGE = "com.mgupta3.application_1.MESSAGE";
+    private Button music_button;
+    private Button picture_button;
+    private Button quotes_button;
+    private Button india_joke_button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
         getActionBar().setDisplayHomeAsUpEnabled(true);
+
+        init();
+    }
+
+    private void init(){
+        picture_button = (Button) findViewById(R.id.pictures);
+        picture_button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                begin(v);
+            }
+        });
+
+        quotes_button = (Button) findViewById(R.id.videos);
+        quotes_button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                videos(v);
+            }
+        });
+
+        india_joke_button = (Button) findViewById(R.id.musics);
+        india_joke_button.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                music(v);
+            }
+        });
     }
 
 
@@ -63,7 +96,7 @@ public class HomePage extends Activity {
     }
 
     public void music(View view){
-        Intent intent = new Intent(this, MusicPlayer.class);
+        Intent intent = new Intent(this, Quotes.class);
         startActivity(intent);
     }
 }
